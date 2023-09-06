@@ -24,8 +24,11 @@ stage('maven package'){
 
      stage('upload artifact'){
          steps{ 
-            sh 'curl --upload-file target/bioMedical-0.0.2-SNAPSHOT.jar -u admin:devops -v http://198.58.119.40:8081/repository/meganrepo/'
-
+            sh 'nexusArtifactUploader artifacts: [[artifactId: 'bioMedical', 
+            classifier: '', file: 'target/bioMedical-0.0.2-SNAPSHOT.jar', type: 'jar']], 
+            credentialsId: '16de3bf1-4857-4e15-ba96-1d5db31c7902', groupId: 'qa',
+             nexusUrl: '198.58.119.40:8081/repository/meganrepo/', nexusVersion: 'nexus3', 
+             protocol: 'http', repository: 'meganrepo', version: '002'
 
          }
      }
